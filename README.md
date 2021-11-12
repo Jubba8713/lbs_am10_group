@@ -8,6 +8,14 @@
 
 * [Fast Food Restaurants](https://www.kaggle.com/datafiniti/fast-food-restaurants?select=FastFoodRestaurants.csv)
 
+* [McDonalds Menu Prices](https://www.pricelisto.com/menu-prices/mcdonalds) 
+
+* [Subway Menu Prices](https://www.pricelisto.com/menu-prices/subway) 
+
+* [Taco Bell Menu Prices](https://www.pricelisto.com/menu-prices/tacobell) 
+
+* [Burger King Menu Prices] (https://www.pricelisto.com/menu-prices/burger-king)
+
 ### Questions
 
 1.  Does having more restaurants/calories in the area result in a higher obesity rate?
