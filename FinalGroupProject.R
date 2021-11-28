@@ -103,3 +103,48 @@ for(r in c('mcdonalds', 'burgerking', 'tacobell', 'subway')) {
     ggplot(aes(label=item, size=n)) +
     geom_text_wordcloud()
 }
+
+#Q veggies and fishies
+## Vegetarian 
+calories_veg <- calories %>% 
+  mutate(item=str_replace_all(tolower(item), '[^\\s\\w]',''),
+        wo = ifelse(grepl('wo', item), 1, 0),
+         veggie = ifelse(grepl('veggie', item), 1, 0),
+        cheesepizza = ifelse(grepl('cheese pizza', item),1,0),
+        bean_burrito = ifelse(grepl('bean burrito', item),1,0),
+         total_veg = wo + veggie + cheesepizza + bean_burrito) %>%
+  group_by(restaurant) %>% 
+  summarize(count = n(),
+            sum_veg = sum(total_veg), 
+            perc = sum_veg/count * 100) %>%
+  ggplot(aes(x= reorder(restaurant, perc), y = perc, fill=factor(ifelse(restaurant=="subway","Highlighted","Normal")))) + 
+  geom_col() + 
+  theme(legend.position = "none")+
+  ggtitle("Subway is the most vegetarian friendly restaurant") +
+  xlab("Restaurants") + 
+  ylab("Percentage of menu items that are pescetarian friendly (%)") 
+calories_veg
+
+## Pescetarian 
+calories_pesc <- calories %>% 
+  mutate(item=str_replace_all(tolower(item), '[^\\s\\w]',''),
+         wo = ifelse(grepl('wo', item), 1, 0),
+         veggie = ifelse(grepl('veggie', item), 1, 0),
+         cheesepizza = ifelse(grepl('cheese pizza', item),1,0),
+         bean_burrito = ifelse(grepl('bean burrito', item),1,0),
+         seafood = ifelse(grepl('seafood', item),1,0),
+         tuna = ifelse(grepl('tuna', item),1,0),
+         fish = ifelse(grepl('fish', item),1,0),
+         lobster = ifelse(grepl('lobster', item),1,0),
+         total_pesc = wo + veggie + cheesepizza + bean_burrito + seafood + tuna + fish + lobster) %>%
+  group_by(restaurant) %>% 
+  summarize(count = n(),
+            sum_pesc = sum(total_pesc), 
+            perc = sum_pesc/count * 100) %>%
+  ggplot(aes(x= reorder(restaurant, perc), y = perc, fill=factor(ifelse(restaurant=="subway","Highlighted","Normal")))) + 
+  geom_col() + 
+  theme(legend.position = "none")+
+  ggtitle("Subway is the most pescetarian friendly restaurant") +
+  xlab("Restaurants") + 
+  ylab("Percentage of menu items that are pescetarian friendly (%)")
+calories_pesc
